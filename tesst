@@ -1,0 +1,84 @@
+<?php include 'header.php';
+include 'sidebar.php';
+
+?>  
+<!-- /. NAV SIDE  -->
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-head-line">SLİDER AYARLARI</h1>
+                <?php if ($_GET['durum']=="ok") {  //islem.php sayfasında header komutu ile oluşturduğumuz linkte ki get (durum) burada kontrol edilir.Eğer sonuc 1 dönerse headerdurum=ok linkine yönelndirilir.bunula beraber ayarlar sayfasında aşağıda yazı belirir.  ?>
+
+
+                 <h1 style="color: green" class="page-subhead-line">Slider başarıyla eklendi... </h1> 
+
+
+             <?php }  
+
+             elseif ($_GET['durum']=="no") { //eğer get ikinci bir koşul olan no ile döönerse başarısız olduğuna dair belirtilen aşağıda ki yazı ayarlar sayfasında çıkar. ?>
+               <h1 style="color: red" class="page-subhead-line">Slider bilgisi girilmedi... </h1>
+           <?php  } 
+           else {   //eğer ok veya no harici başka bir komut veya hiç komut dönmezse aşağıda default yani varsayılan değeriayarlar safasında çıkar ?>
+              <h1 class="page-subhead-line">Buradan slider ekleyebilirsiniz... </h1>
+
+          <?php }
+
+          ?>
+      </div>
+  </div>
+  <!-- /. ROW  -->
+  <div >
+   <a href="slider_ekle.php"> <button href class="btn btn-success" >Slider Ekle </button> </a>
+   <hr>
+
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Slider
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                 <?php $slidersorgu=mysql_query("SELECT*FROM slider")   ?>
+
+                 <tr>
+                    <th>Sıra No</th>
+                    <th>Slider Adı</th>
+                    <th>Slider Url</th>
+                    <th>Slider Resim </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                 <?php  while ($slidercek=mysql_fetch_assoc($slidersorgu)) { ?>
+
+
+                    <td type="text"  "><?php echo $slidercek['slider_id']; ?></td>
+                    <td style="width:400px " ><?php echo $slidercek['slider_ad'];?></td>
+                    <td ><?php echo $slidercek['slider_url'];?></td>
+                    <td > 
+                      <img src=" <?php echo $slidercek['slider_resimyol'];?>">
+
+                    </td>
+                    <td   ><a href="slider-duzenle.php?slider_id=<?php echo $slidercek['slider_id']; ?>" > <button  class="btn btn-primary" >Düzenle </button></td></a>
+                    <td  style="width:40px" ><a href="islem.php?menu_id=<?php echo $menucek['menu_id']; ?>&menusil=ok"><button name="menusil" class="btn btn-danger">Sil</button></a></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+</div>
+<!-- /. PAGE INNER  -->
+</div>
+<!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  --></div>
+
+<?php include 'footer.php' ?>
